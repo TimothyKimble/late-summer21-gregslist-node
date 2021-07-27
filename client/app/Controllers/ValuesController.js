@@ -1,28 +1,29 @@
-import { ProxyState } from '../AppState.js'
-import { valuesService } from '../Services/ValuesService.js'
+import { ProxyState } from "../AppState.js";
+import { valuesService } from "../Services/ValuesService.js";
 
-// Private
+
+//Private
 function _draw() {
+  let values = ProxyState.values;
   let template = ''
-  ProxyState.values.forEach(v => {
-    template += v.Template
-  })
-  document.getElementById('app').innerHTML = /* html */`
-  <button className="btn btn-info" onclick="app.valuesController.addValue()">Add Value</button>
+  values.forEach(v => template += v.Template)
+  document.getElementById("app").innerHTML = /*html*/`
+  <button className="btn btn-info" onclick="app.valuesController.addValue()">Add Value</button>  
   <div className="card-columns values">
       ${template}
   </div>
   `
 }
 
-// Public
+//Public
 export default class ValuesController {
   constructor() {
-    ProxyState.on('values', _draw)
-    _draw()
+    ProxyState.on("values", _draw);
+    // _draw()
   }
 
   addValue() {
     valuesService.addValue()
   }
+
 }
